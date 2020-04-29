@@ -17,6 +17,7 @@ If you don't care about the details and aren't opinionated about where files go 
 ./init.sh
 # if init.sh tells you to run a command, please do so.
 ./install.sh
+# Edit your ~/.environmental_variables to set values
 ```
 
 ### If you're opinionated:
@@ -40,3 +41,6 @@ Both init.sh and install.sh take the install directory as their first argument; 
        ssmcat $i | sed -i 's/asdf/hjkl/g' |ssmtee $i
      done
    ```
+## Help and tool contributions welcome
+Send me a PR or an issue.
+I'm trying to keep this pure shell and awscli, but if the tool uses a common enough language, I'd consider inclusion.
