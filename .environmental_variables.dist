@@ -1,0 +1,2 @@
+AWS_ECR_ACCOUNT_ID="" # Aws account ID (numeric) of the account you use for ECR
+AWS_ECR_PROFILE="" # Profile name as listed in ~/.aws/config

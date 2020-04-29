@@ -10,6 +10,21 @@ General no warranties attached repo for tools I use from time to time. I need a 
  - ssmedit.sh - tool that uses $EDITOR to open and write back an SSM parameter.  In theory, should work with atom or whatever, so long as you have EDITOR set.
    Example: `ssmedit --profile sandbox -d -f /apps/node-app/dev/.env`
 
+## How to:
+
+If you don't care about the details and aren't opinionated about where files go in your home directory, do this:
+```
+./init.sh
+# if init.sh tells you to run a command, please do so.
+./install.sh
+```
+
+### If you're opinionated:
+
+Both init.sh and install.sh take the install directory as their first argument; do whatever you want with that.
+
+
+
 
 ## TODO
 
