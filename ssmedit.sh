@@ -18,6 +18,7 @@ function usage
 {
     echo "usage: $0 --profile aws-profile-name -f /full/path/to/param [--with-decryption|-d]"
     echo "-f --fullpath: don't prefix anything, use the argument as $param directly.  mutex with e, n, p"
+    echo "-d --with-decryption sets parameter as secure string"
     echo "-e --environment unimplemented"
     echo "-n --name unimplemented"
     echo "-p --prefix unimplemented"
@@ -25,6 +26,8 @@ function usage
 }
 args=()
 # named args
+debug_mode=false
+encryption=true
 
 while [ "$1" != "" ]; do
   case "$1" in
@@ -78,7 +81,12 @@ else
   encryption_arg="--type String"
 fi
 
+set +e
 param_content=$(aws ssm get-parameter --name $fullpath $decryption_arg --query 'Parameter.Value' --output text )
+if [[ ! $? ]]; then
+  param_content=""
+fi
+set -e
 tempdir=$(mktemp -d "${TMPDIR:-/tmp/}$(basename $0).XXXXXXXXXXXX")
 #echo $tempdir
 tempfile="${tempdir}/param_content"

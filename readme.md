@@ -9,3 +9,19 @@ General no warranties attached repo for tools I use from time to time. I need a 
 
  - ssmedit.sh - tool that uses $EDITOR to open and write back an SSM parameter.  In theory, should work with atom or whatever, so long as you have EDITOR set.
    Example: `ssmedit --profile sandbox -d -f /apps/node-app/dev/.env`
+
+
+## TODO
+
+ - ssmcat.sh - tool to concat a parameter's contents and stdout.
+
+ - ssmtee.sh - emulate tee but for ssm parameter.
+   should write back with whatever...
+
+   The goal of these two is to be able to pipeline ssm operations.
+  something like this:
+  ```
+     for i in `...`; do
+       ssmcat $i | sed -i 's/asdf/hjkl/g' |ssmtee $i
+     done
+   ```
