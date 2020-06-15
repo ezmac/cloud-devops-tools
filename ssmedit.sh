@@ -81,7 +81,7 @@ else
 fi
 
 set +e
-param_content=$(aws ssm get-parameter --name $fullpath $decryption_arg --query 'Parameter.Value' --output text )
+param_content=$(aws --profile $AWS_PROFILE ssm get-parameter --name $fullpath $decryption_arg --query 'Parameter.Value' --output text )
 if [[ ! $? ]]; then
   param_content=""
 fi
@@ -99,6 +99,6 @@ echo $encryption_arg
 
 
 ## TODO: Will overrite with same content.  Might want to diff and offer confirmation or something
-aws ssm put-parameter --name $fullpath ${encryption_arg[@]} --value file://$tempfile
+aws --profile $AWS_PROFILE ssm put-parameter --name $fullpath ${encryption_arg[@]} --value file://$tempfile
 rm $tempfile
 rmdir $tempdir
