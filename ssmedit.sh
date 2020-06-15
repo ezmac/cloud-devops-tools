@@ -27,7 +27,7 @@ function usage
 args=()
 # named args
 debug_mode=false
-encryption=true
+encryption=false
 
 while [ "$1" != "" ]; do
   case "$1" in
@@ -72,13 +72,12 @@ debug "Using aws profile $profile"
 # Like I want to keep setting it...
 export AWS_PROFILE=$profile
 
-if [[ $encryption ]]; then 
-  decryption_arg="--with-decryption"
+decryption_arg="--with-decryption"
+if [[ true == $encryption ]]; then 
   encryption_arg=("--type" "SecureString" "--overwrite")
-  echo "${encryption_arg}"
+  echo "${encryption_arg[@]}"
 else
-  decryption_arg=""
-  encryption_arg="--type String"
+  encryption_arg=("--type" "String" "--overwrite")
 fi
 
 set +e
