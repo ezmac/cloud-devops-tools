@@ -91,7 +91,7 @@ tempdir=$(mktemp -d "${TMPDIR:-/tmp/}$(basename $0).XXXXXXXXXXXX")
 tempfile="${tempdir}/param_content"
 #echo $tempfile
 echo "${param_content}" > "${tempfile}"
-$EDITOR $tempfile
+${EDITOR:-vi} $tempfile
 
 new_contents=$(cat $tempfile)
 
