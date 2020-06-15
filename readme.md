@@ -41,6 +41,10 @@ Both init.sh and install.sh take the install directory as their first argument; 
        ssmcat $i | sed -i 's/asdf/hjkl/g' |ssmtee $i
      done
    ```
+
+ - ssmfind.sh - tool to find ssm parameters by properties, kind of like the `find` command in linux.
+   - ssmfind -name \*myapp\*
+   - ssmfind [-mtime, -newer, etc]
 ## Help and tool contributions welcome
 Send me a PR or an issue.
 I'm trying to keep this pure shell and awscli, but if the tool uses a common enough language, I'd consider inclusion.
