@@ -16,13 +16,13 @@ IFS=$'\n'       # make newlines the only separator
 
 function usage
 {
-    echo "usage: $0 --profile aws-profile-name -f /full/path/to/param [--with-decryption|-d]"
-    echo "-f --fullpath: don't prefix anything, use the argument as $param directly.  mutex with e, n, p"
-    echo "-d --with-decryption sets parameter as secure string"
-    echo "-e --environment unimplemented"
-    echo "-n --name unimplemented"
-    echo "-p --prefix unimplemented"
-    exit
+  echo "usage: $0 --profile aws-profile-name -f /full/path/to/param [--with-decryption|-d]"
+  echo "-f --fullpath: don't prefix anything, use the argument as $param directly.  mutex with e, n, p"
+  echo "-d --with-decryption sets parameter as secure string"
+  echo "-e --environment unimplemented"
+  echo "-n --name unimplemented"
+  echo "-p --prefix unimplemented"
+  exit
 }
 args=()
 # named args
