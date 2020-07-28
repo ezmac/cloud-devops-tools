@@ -91,14 +91,27 @@ tempdir=$(mktemp -d "${TMPDIR:-/tmp/}$(basename $0).XXXXXXXXXXXX")
 tempfile="${tempdir}/param_content"
 #echo $tempfile
 echo "${param_content}" > "${tempfile}"
+last_mod=`stat -c '%Y' $tempfile`
 ${EDITOR:-vi} $tempfile
 
 new_contents=$(cat $tempfile)
 
 echo $encryption_arg
 
+new_last_mod=`stat -c '%Y' $tempfile`
+if [[ $last_mod != $new_last_mod ]]; then
+  if [[ $new_contents != $param_content ]]; then 
+    aws --profile $AWS_PROFILE ssm put-parameter --name $fullpath ${encryption_arg[@]} --value file://$tempfile
+  else
+    echo "no change in content detected; parameter unchanged"
+  fi
+else
+  echo "No change in modified time for temp file; parameter unchanged"
+fi
+
 
 ## TODO: Will overrite with same content.  Might want to diff and offer confirmation or something
-aws --profile $AWS_PROFILE ssm put-parameter --name $fullpath ${encryption_arg[@]} --value file://$tempfile
+
+
 rm $tempfile
 rmdir $tempdir
