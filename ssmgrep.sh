@@ -36,7 +36,7 @@ if [[ ! -z $path ]]; then
 
   for param in $parameters; do 
     param_content=$(echo "$param"|cut -f2 -d\ )
-    grep_results=$(echo "$param_content" | grep --color=always $term 1>/dev/null)
+    grep_results=$(echo "$param_content" | grep -Pi --color=always $term 1>/dev/null)
     if [[ 0 == $? ]]; then 
       echo $(echo \"$param\"|cut -f1 -d\ ) $grep_results
     fi
@@ -45,7 +45,7 @@ else
   parameters=$(aws ssm describe-parameters --query 'Parameters[].[Name]' --output text)
   for param in $parameters; do 
     param_content=$(aws ssm get-parameter --name $param --with-decryption --query 'Parameter.Value' --output text )
-    grep_results=$(echo "$param_content" | grep --color=always $term )
+    grep_results=$(echo "$param_content" | grep -Pi --color=always $term )
     if [[ 0 == $? ]]; then 
       echo "$param $grep_results"
     fi

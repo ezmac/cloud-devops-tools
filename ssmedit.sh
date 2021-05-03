@@ -16,8 +16,9 @@ IFS=$'\n'       # make newlines the only separator
 
 function usage
 {
-  echo "usage: $0 --profile aws-profile-name -f /full/path/to/param [--with-decryption|-d]"
-  echo "-f --fullpath: don't prefix anything, use the argument as $param directly.  mutex with e, n, p"
+  echo "usage: $0 --profile aws-profile-name /full/path/to/param [--with-decryption|-d]"
+  # echo "-f --fullpath: don't prefix anything, use the argument as $param directly.  mutex with e, n, p"
+  # with the mutexen for -f not implemented, I'd rather default.  -f left for compat reasons.
   echo "-d --with-decryption sets parameter as secure string"
   echo "-e --environment unimplemented"
   echo "-n --name unimplemented"
@@ -49,7 +50,9 @@ function debug {
       echo $1
     fi
 }
-
+if [[ -z "$fullpath" ]]; then
+  fullpath="$args"
+fi
 
 # TODO: Clean up how we handle profiles
 if [[ -z "$profile" ]]; then
@@ -75,7 +78,6 @@ export AWS_PROFILE=$profile
 decryption_arg="--with-decryption"
 if [[ true == $encryption ]]; then 
   encryption_arg=("--type" "SecureString" "--overwrite")
-  echo "${encryption_arg[@]}"
 else
   encryption_arg=("--type" "String" "--overwrite")
 fi
@@ -96,7 +98,7 @@ ${EDITOR:-vi} $tempfile
 
 new_contents=$(cat $tempfile)
 
-echo $encryption_arg
+debug $encryption_arg
 
 new_last_mod=`stat -c '%Y' $tempfile`
 if [[ $last_mod != $new_last_mod ]]; then

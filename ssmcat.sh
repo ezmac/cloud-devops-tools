@@ -76,4 +76,4 @@ if [[ ! $? ]]; then
   param_content=""
 fi
 set -e
-echo -n $param_content
+echo -n "${param_content}"
